@@ -4,6 +4,22 @@
   box-sizing: border-box;
 }
 
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+a[href^="tel:"],
+a[href^="mailto:"] {
+  text-decoration: none;
+  color: inherit;
+}
+
+.value, .store-info-row span {
+  text-decoration: none !important;
+}
+
+
 html {
   font-size: 62.5%;
 }
