@@ -132,8 +132,8 @@ h1{
   border: 0.1rem solid #E3C46B;
   color: #1C2430;
   
-  width: 26.7vw;
-  height: 26.7vw;
+  width: 27vw;
+  height: 27vw;
   max-width: 100px;
   max-height: 100px;
   
@@ -142,11 +142,11 @@ h1{
   align-items: center;
   justify-content: center;
   text-align: center;
-  font-size: 7.2vw;
   line-height: 1.4;
 }
 
 .badge-text {
+  font-size: 4vw;
   font-weight: 400;
 }
 
