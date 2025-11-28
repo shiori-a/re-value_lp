@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>利用規約 | RE:VALUE 下北沢</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body class="subpage">
+
+  <!-- ヘッダー（LPと同じ） -->
+  <header class="header">
+  <a href="index.html" class="header-logo-block">
+    <img src="images/icon.png" alt="RE:VALUEロゴ" class="header-logo">
+    <h1 class="header-title">RE:VALUE 下北沢</h1>
+  </a>
+</header>
+
+<!-- メインビジュアル -->
+  <div class="reserve-hero">
+    <img src="images/reserve_pc.png" alt="査定予約" class="reserve-hero-img">
+    <div class="reserve-title">査定予約</div>
+  </div>
+
+  <!-- 予約フォーム本体 -->
+  <section class="reserve-form-section">
+
+    <form 
+      action="https://formspree.io/f/mwpaenpw"
+      method="POST"
+      data-redirect="thanks.html">
+
+      <!-- お客様情報 -->
+      <h2 class="form-block-title">お客様情報</h2>
+
+      <div class="form-row">
+        <label>お名前</label>
+        <input type="text" required>
+      </div>
+
+      <div class="form-row">
+        <label>TEL</label>
+        <input type="tel" required>
+      </div>
+
+      <div class="form-row">
+        <label>E-mail</label>
+        <input type="email" required>
+      </div>
+
+      <!-- 来店希望日時 -->
+      <h2 class="form-block-title">ご来店希望日時（第3希望まで）</h2>
+
+      <div class="form-row double">
+        <label>第1希望</label>
+        <select>
+          <option>希望日を選択</option>
+          <option>2025/11/11</option>
+          <option>2025/11/12</option>
+          <option>2025/11/13</option>
+          <option>2025/11/14</option>
+          <option>2025/11/15</option>
+          <option>2025/11/16</option>
+          <option>2025/11/17</option>
+          <option>2025/11/18</option>
+          <option>2025/11/19</option>
+          <option>2025/11/20</option>
+          <option>2025/11/21</option>
+          <option>2025/11/22</option>
+          <option>2025/11/23</option>
+          <option>2025/11/24</option>
+          <option>2025/11/25</option>
+          <option>2025/11/26</option>
+          <option>2025/11/27</option>
+
+          
+        </select>
+
+        <select>
+          <option>時間を選択</option>
+          <option>11:00</option>
+          <option>12:00</option>
+          <option>13:00</option>
+          <option>14:00</option>
+          <option>15:00</option>
+          <option>16:00</option>
+          <option>17:00</option>
+          <option>18:00</option>
+          <option>19:00</option>
+        </select>
+      </div>
+
+      <div class="form-row double">
+        <label>第2希望</label>
+        <select>
+          <option>希望日を選択</option>
+        </select>
+        <select>
+          <option>時間を選択</option>
+        </select>
+      </div>
+
+      <div class="form-row double">
+        <label>第3希望</label>
+        <select>
+          <option>希望日を選択</option>
+        </select>
+        <select>
+          <option>時間を選択</option>
+        </select>
+      </div>
+
+      <!-- お持ち込み点数 -->
+      <div class="form-row carry-row">
+        <label>お持ち込み点数（おおよそ）</label>
+        <input type="number">
+      </div>
+
+      <!-- ブランドカテゴリ -->
+      <div class="form-row brand">
+        <label>ブランドカテゴリ</label>
+        <textarea></textarea>
+      </div>
+
+      <!-- 来店人数 -->
+      <div class="form-row people-count ">
+        <label>来店人数</label>
+        <input type="number">
+      </div>
+
+      <!-- 規約チェック -->
+      <div class="form-check">
+        <input type="checkbox" required>
+        <label>「利用規約」および「個人情報の取り扱い」を確認し、同意しました。</label>
+      </div>
+
+      <!-- ボタン -->
+      <button type="submit" class="form-submit-btn">査定予約</button>
+
+      <!--Thenksページ遷移-->
+      <input type="hidden" name="_next" value="thanks.html">
+
+
+    </form>
+  </section>
+
+  <footer class="footer-section">
+
+  <!-- ロゴ -->
+  <div class="footer-header">
+    <a href="index.html" class="footer-logo-block">
+      <img src="images/icon.png" alt="RE:VALUE ロゴ" class="rv-logo-footer">
+      <h2 class="footer-store-name">RE:VALUE 下北沢</h2>
+    </a>
+   </div> 
+
+  <!-- 説明文 -->
+  <p class="footer-description">
+    RE:VALUE 下北沢は古物営業法に基づく古物商の許可を得て運営しております。
+  </p>
+  <p class="footer-license">
+    古物商許可番号：東京都公安委員会 第***********号
+  </p>
+
+  <!-- SNSアイコン -->
+  <div class="footer-sns">
+    <a href="#"><img src="images/instagram.png" alt="Instagram"></a>
+    <a href="#"><img src="images/line.png" alt="LINE"></a>
+    <a href="#"><img src="images/x.png" alt="X"></a>
+  </div>
+
+</footer>
+
+<!-- コピーライト（黒帯） -->
+<div class="footer-copy">
+  Copyright © 2025 RE:VALUE shimokitazawa. All Rights Reserved.
+</div>
+
