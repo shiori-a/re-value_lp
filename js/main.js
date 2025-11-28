@@ -117,10 +117,17 @@ faqItems.forEach(item => {
 });
 
 
-//予約フォーム　送信完了
-const form = document.querySelector("form");
-
+//予約完了　サンクスページ遷移
 form.addEventListener("submit", function(e) {
-  e.preventDefault(); // 本来の送信を止める
-  window.location.href = "thanks.html";
+  e.preventDefault();
+
+  fetch(form.action, {
+    method: "POST",
+    body: new FormData(form),
+    headers: {
+      'Accept': 'application/json'
+    }
+  }).then(() => {
+    window.location.href = "thanks.html";
+  });
 });

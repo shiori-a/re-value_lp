@@ -923,7 +923,7 @@ h1{
   letter-spacing: 0.2rem;
 }
 
-/* フォームセクション */
+/* 予約フォームページ */
 .reserve-form-section {
   width: 92%;
   margin: 0 auto;
@@ -951,6 +951,9 @@ h1{
   font-weight: 500;
 }
 
+.form-row.customer input{
+  width:50%;
+}
 
 
 
@@ -1013,6 +1016,7 @@ h1{
   border-radius: 0.4rem;
   padding: 0 0.8rem;
   width: 15rem;
+  margin-left: auto;
 }
 
 .people-count{
