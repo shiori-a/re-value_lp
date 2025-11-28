@@ -36,17 +36,17 @@
 
       <div class="form-row">
         <label>お名前</label>
-        <input type="text" required>
+        <input type="text"  name="name" required>
       </div>
 
       <div class="form-row">
         <label>TEL</label>
-        <input type="tel" required>
+        <input type="tel" name="tel" required>
       </div>
 
       <div class="form-row">
         <label>E-mail</label>
-        <input type="email" required>
+        <input type="email" name="email" required>
       </div>
 
       <!-- 来店希望日時 -->
@@ -54,7 +54,7 @@
 
       <div class="form-row double">
         <label>第1希望</label>
-        <select>
+        <select name="date1">
           <option>希望日を選択</option>
           <option>2025/11/11</option>
           <option>2025/11/12</option>
@@ -77,7 +77,7 @@
           
         </select>
 
-        <select>
+        <select name="time1">
           <option>時間を選択</option>
           <option>11:00</option>
           <option>12:00</option>
@@ -114,24 +114,24 @@
       <!-- お持ち込み点数 -->
       <div class="form-row carry-row">
         <label>お持ち込み点数（おおよそ）</label>
-        <input type="number">
+        <input type="number" name="number">
       </div>
 
       <!-- ブランドカテゴリ -->
       <div class="form-row brand">
         <label>ブランドカテゴリ</label>
-        <textarea></textarea>
+        <textarea name="categoly"></textarea>
       </div>
 
       <!-- 来店人数 -->
       <div class="form-row people-count ">
         <label>来店人数</label>
-        <input type="number">
+        <input type="number" name="number">
       </div>
 
       <!-- 規約チェック -->
       <div class="form-check">
-        <input type="checkbox" required>
+        <input type="checkbox" name="agree" required>
         <label>「利用規約」および「個人情報の取り扱い」を確認し、同意しました。</label>
       </div>
 
