@@ -609,6 +609,10 @@ h1{
   color: #1C2430;
 }
 
+.faq-question span{
+  color: #1C2430;
+}
+
 /* ▼アイコン */
 .faq-icon {
   transition: transform 0.2s ease;
