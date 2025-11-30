@@ -1,3 +1,4 @@
+console.log("JS読み込まれてるよ！")
 // トップページ　時間選択
 
 const patternA = {
