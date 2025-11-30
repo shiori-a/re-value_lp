@@ -26,8 +26,8 @@
   <!-- 予約フォーム本体 -->
   <section class="reserve-form-section">
 
-    <form 
-      action="https://formspree.io/f/mwpaenpw"
+    <form id="reserve-form"
+    action="https://formspree.io/f/mwpaenpw"
       method="POST">
 
 
@@ -137,9 +137,11 @@
 
       <!-- ボタン -->
       <button type="submit" class="form-submit-btn">査定予約</button>
-
-      <!--Thenksページ遷移-->
-      <input type="hidden" name="_next" value="https://shiori-a.github.io/re-value_lp/thanks.html">
+      
+      <p class="form-thanks" style="display:none;">
+        ご予約ありがとうございます。<br>
+        内容を確認のうえ、担当者よりご連絡いたします。
+      </p>
 
 
     </form>
@@ -177,3 +179,7 @@
   Copyright © 2025 RE:VALUE shimokitazawa. All Rights Reserved.
 </div>
 
+<script src="js/main.js" defer></script>
+
+</body>
+</html>

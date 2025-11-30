@@ -117,17 +117,32 @@ faqItems.forEach(item => {
 });
 
 
-//予約完了　サンクスページ遷移
-form.addEventListener("submit", function(e) {
-  e.preventDefault();
+//予約完了　
+const form = document.querySelector("#reserve-form");
+const thanksMessage = document.querySelector(".form-thanks");
+
+if(gorm && thanksMessage){
+  form.addEventListener("submit", function (e) {
+   e.preventDefault();
+
+  const formData = new FormData(form);
 
   fetch(form.action, {
-    method: "POST",
-    body: new FormData(form),
+    method: form.method,
+    body: formData,
     headers: {
       'Accept': 'application/json'
     }
-  }).then(() => {
-    window.location.href = "thanks.html";
+  }).then(response => {
+    if (response.ok) {
+      form.reset();                // フォーム初期化
+      form.style.display = "none"; // フォーム非表示
+      thanksMessage.style.display = "block"; // 完了メッセージ表示
+    } else {
+      alert("送信に失敗しました。もう一度お試しください。");
+    }
+  }).catch(error => {
+    alert("通信エラーが発生しました。");
   });
 });
+}
