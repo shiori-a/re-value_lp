@@ -118,7 +118,7 @@ faqItems.forEach(item => {
 
 
 //予約完了　
-document.addEventListener("DOMContentLoaded", function ( ){
+document.addEventListener("DOMContentLoaded", function () {
  const form = document.getElementById("reserve-form");
  const thanksMessage = document.querySelector(".form-thanks");
 
@@ -131,10 +131,10 @@ form.addEventListener("submit", function (e) {
     method: "POST",
     body: formData,
     headers: {
-      'Accept': 'application/json'
+      Accept: "application/json"
     }
   })
-  .then(response => {
+  .then((response) => {
     if (response.ok) {
       form.reset();                // フォーム初期化
       form.style.display = "none"; // フォーム非表示
@@ -142,8 +142,10 @@ form.addEventListener("submit", function (e) {
     } else {
       alert("送信に失敗しました。もう一度お試しください。");
     }
-  }).catch(error => {
+  })
+  .catch((error) => {
     alert("通信エラーが発生しました。");
+    console.error(error);
   });
 });
 });
