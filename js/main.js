@@ -118,22 +118,23 @@ faqItems.forEach(item => {
 
 
 //予約完了　
-const form = document.querySelector("#reserve-form");
-const thanksMessage = document.querySelector(".form-thanks");
+document.addEventListener("DOMContentLoaded", function ( ){
+ const form = document.getElementById("reserve-form");
+ const thanksMessage = document.querySelector(".form-thanks");
 
-if(gorm && thanksMessage){
-  form.addEventListener("submit", function (e) {
+form.addEventListener("submit", function (e) {
    e.preventDefault();
 
   const formData = new FormData(form);
 
   fetch(form.action, {
-    method: form.method,
+    method: "POST",
     body: formData,
     headers: {
       'Accept': 'application/json'
     }
-  }).then(response => {
+  })
+  .then(response => {
     if (response.ok) {
       form.reset();                // フォーム初期化
       form.style.display = "none"; // フォーム非表示
@@ -145,4 +146,4 @@ if(gorm && thanksMessage){
     alert("通信エラーが発生しました。");
   });
 });
-}
+});
