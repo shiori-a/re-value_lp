@@ -119,64 +119,125 @@ faqItems.forEach(item => {
   });
 });
 
-//  -----------------------------
-//  予約フォームのバリデーション
-//  -----------------------------
+// ======================================
+// 予約フォーム JS（完全リニューアル版）
+// ======================================
+
 const form = document.getElementById("reserve-form");
 const messageEl = document.getElementById("message");
 
 if (form) {
+
+  // ====== 各要素の取得 ======
+  const nameField = form.elements["name"];
+  const emailField = form.elements["email"];
+  const telField = form.elements["tel"];
+  const date1 = form.elements["date1"];
+  const time1 = form.elements["time1"];
+  const agree = form.querySelector("input[name='agree']");
+
+  const telPattern = /^0\d{1,4}-?\d{1,4}-?\d{3,4}$/;
+
+  // --------------------------------------
+  // 共通：空欄チェック関数（リアルタイム用）
+  // --------------------------------------
+  function requireCheck(field, message) {
+    field.setCustomValidity("");
+    if (field.value.trim() === "") {
+      field.setCustomValidity(message);
+    }
+    field.reportValidity();
+  }
+
+  // --------------------------------------
+  // 各フィールドのリアルタイム監視
+  // --------------------------------------
+
+  // 名前
+  nameField.addEventListener("input", () => {
+    requireCheck(nameField, "お名前を入力してください。");
+  });
+
+  // メール
+  emailField.addEventListener("input", () => {
+    requireCheck(emailField, "メールアドレスを入力してください。");
+  });
+
+  // TEL（空欄 + 書式チェック）
+  telField.addEventListener("input", () => {
+    telField.setCustomValidity("");
+
+    if (telField.value.trim() === "") {
+      telField.setCustomValidity("電話番号を入力してください。");
+    } else if (!telPattern.test(telField.value)) {
+      telField.setCustomValidity("電話番号は正しい形式で入力してください。");
+    }
+    telField.reportValidity();
+  });
+
+  // 第1希望 日付
+  date1.addEventListener("change", () => {
+    date1.setCustomValidity("");
+    if (date1.value === "" || date1.value === "希望日を選択") {
+      date1.setCustomValidity("第1希望の日付を選択してください。");
+    }
+    date1.reportValidity();
+  });
+
+  // 第1希望 時間
+  time1.addEventListener("change", () => {
+    time1.setCustomValidity("");
+    if (time1.value === "" || time1.value === "時間を選択") {
+      time1.setCustomValidity("第1希望の時間を選択してください。");
+    }
+    time1.reportValidity();
+  });
+
+  // --------------------------------------
+  // 送信時：最終まとめチェック
+  // --------------------------------------
   form.addEventListener("submit", function (e) {
     e.preventDefault();
 
-    const name = form.elements["name"];
-    const email = form.elements["email"];
-    const tel = form.elements["tel"];
-    const agree = form.querySelector("input[name='agree']");
-
-    const telPattern = /^0\d{1,4}-?\d{1,4}-?\d{3,4}$/;
-    
-
-    name.setCustomValidity("");
-    email.setCustomValidity("");
-    tel.setCustomValidity("");
-
-    if (name.value.trim() === "") {
-      name.setCustomValidity("お名前を入力してください。");
-    }
-
-    if (email.value.trim() === "") {
-      email.setCustomValidity("メールアドレスを入力してください。");
-    }
-
-    if (tel.value.trim() === "") {
-      tel.setCustomValidity("電話番号を入力してください。");
-    } else if (!telPattern.test(tel.value)) {
-      tel.setCustomValidity("電話番号は正しい形式で入力してください。");
-    }
-
-    // --- 第1希望の必須チェック ------------------
-    const date1 = form.elements["date1"];
-    const time1 = form.elements["time1"];
-
+    // クリア
+    nameField.setCustomValidity("");
+    emailField.setCustomValidity("");
+    telField.setCustomValidity("");
     date1.setCustomValidity("");
     time1.setCustomValidity("");
 
-    if (date1.value === "") {
-     date1.setCustomValidity("第1希望の日付を選択してください。");
+    // 空欄チェック
+    if (nameField.value.trim() === "") {
+      nameField.setCustomValidity("お名前を入力してください。");
     }
 
-    if (time1.value === "") {
-     time1.setCustomValidity("第1希望の時間を選択してください。");
+    if (emailField.value.trim() === "") {
+      emailField.setCustomValidity("メールアドレスを入力してください。");
     }
-// -------------------------------------------
 
+    if (telField.value.trim() === "") {
+      telField.setCustomValidity("電話番号を入力してください。");
+    } else if (!telPattern.test(telField.value)) {
+      telField.setCustomValidity("電話番号は正しい形式で入力してください。");
+    }
 
+    if (date1.value === "" || date1.value === "希望日を選択") {
+      date1.setCustomValidity("第1希望の日付を選択してください。");
+    }
+
+    if (time1.value === "" || time1.value === "時間を選択") {
+      time1.setCustomValidity("第1希望の時間を選択してください。");
+    }
+
+    // チェックに引っかかったら送信しない
     if (!form.checkValidity()) {
       form.reportValidity();
       return;
     }
 
+    // ----------------------------
+    // Formspree 送信処理
+    // ----------------------------
     messageEl.textContent = "送信中です…";
     messageEl.style.color = "#555";
     messageEl.style.display = "block";
@@ -186,23 +247,24 @@ if (form) {
       body: new FormData(form),
       headers: { Accept: "application/json" },
     })
-    .then(response => {
-      if (response.ok) {
-        messageEl.textContent = "送信が完了しました。ご予約ありがとうございます！";
-        messageEl.style.color = "#1c2430";
-        form.reset();
+      .then((response) => {
+        if (response.ok) {
+          messageEl.textContent =
+            "送信が完了しました。ご予約ありがとうございます！";
+          messageEl.style.color = "#1c2430";
 
-        const submitBtn = form.querySelector(".form-submit-btn");
-        if (submitBtn) submitBtn.style.display = "none";
-      } else {
-        messageEl.textContent = "送信に失敗しました。もう一度お試しください。";
+          form.reset();
+          const submitBtn = form.querySelector(".form-submit-btn");
+          if (submitBtn) submitBtn.style.display = "none";
+        } else {
+          messageEl.textContent = "送信に失敗しました。もう一度お試しください。";
+          messageEl.style.color = "red";
+        }
+      })
+      .catch(() => {
+        messageEl.textContent = "通信エラーが発生しました。";
         messageEl.style.color = "red";
-      }
-    })
-    .catch(() => {
-      messageEl.textContent = "通信エラーが発生しました。";
-      messageEl.style.color = "red";
-    });
+      });
   });
 }
 
