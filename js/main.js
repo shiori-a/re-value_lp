@@ -256,3 +256,21 @@ dateSelects.forEach(select => {
 timeSelects.forEach(select => {
   select.addEventListener("change", updateDisabledOptions);
 });
+
+
+// =============================
+// フェードイン（スクロール）
+// =============================
+const fadeTargets = document.querySelectorAll('.fade-target');
+
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      entry.target.classList.add('fade-in');
+    }
+  });
+}, {
+  threshold: 0.2 // 20%見えたら発火
+});
+
+fadeTargets.forEach(target => observer.observe(target));

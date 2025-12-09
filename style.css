@@ -1121,6 +1121,20 @@ h1{
   padding-bottom: 0.4rem;
 }
 
+/* ▼ フェードイン前の状態（非表示） */
+.fade-target {
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 0.9s ease, transform 0.9s ease;
+}
+
+/* ▼ 表示状態 */
+.fade-in {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+
 /*　CTAボタン横並び */
 @media screen and (min-width: 768px) {
   .header-logo{
