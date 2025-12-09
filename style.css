@@ -942,6 +942,7 @@ h1{
   margin-top: 2rem;
 }
 
+
 .form-block-title {
   font-size: 1.6rem;
   font-weight: 700;
@@ -959,7 +960,7 @@ h1{
   margin-bottom: 0.4rem;
   font-size: 1.4rem;
   color: #333;
-  width: 6rem;
+  width: 9rem;
   font-weight: 500;
 }
 
@@ -1876,9 +1877,13 @@ h1{
 
 /* ▼ 行ごとを中央寄せ */
   .form-row {
-    justify-content: center;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
     gap: 3rem;
+    margin-bottom: 2rem;
   }
+
 
   
 /* ▼ セクションタイトル */
@@ -2036,10 +2041,14 @@ h1{
     padding: 1.5rem 7rem;
   }
 
+
+  .form-row {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+  }
+
 }
-
-
-
 
 
 

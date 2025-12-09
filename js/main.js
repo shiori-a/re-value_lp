@@ -119,125 +119,91 @@ faqItems.forEach(item => {
   });
 });
 
-// ======================================
-// 予約フォーム JS（完全リニューアル版）
-// ======================================
-
+// ====================================
+// 予約フォーム バリデーション
+// ====================================
 const form = document.getElementById("reserve-form");
 const messageEl = document.getElementById("message");
 
 if (form) {
+  // ▼ 入力中 / 選択中にリアルタイムでエラー表示
+  form.addEventListener("input", validateForm);
+  form.addEventListener("change", validateForm);
 
-  // ====== 各要素の取得 ======
-  const nameField = form.elements["name"];
-  const emailField = form.elements["email"];
-  const telField = form.elements["tel"];
-  const date1 = form.elements["date1"];
-  const time1 = form.elements["time1"];
-  const agree = form.querySelector("input[name='agree']");
+  function validateForm() {
+    // --- 基本項目 -----------------
+    const name = form.elements["name"];
+    const email = form.elements["email"];
+    const tel = form.elements["tel"];
+    const telPattern = /^0\d{1,4}-?\d{1,4}-?\d{3,4}$/;
 
-  const telPattern = /^0\d{1,4}-?\d{1,4}-?\d{3,4}$/;
+    name.setCustomValidity("");
+    email.setCustomValidity("");
+    tel.setCustomValidity("");
 
-  // --------------------------------------
-  // 共通：空欄チェック関数（リアルタイム用）
-  // --------------------------------------
-  function requireCheck(field, message) {
-    field.setCustomValidity("");
-    if (field.value.trim() === "") {
-      field.setCustomValidity(message);
+    if (name.value.trim() === "") {
+      name.setCustomValidity("お名前を入力してください。");
     }
-    field.reportValidity();
-  }
 
-  // --------------------------------------
-  // 各フィールドのリアルタイム監視
-  // --------------------------------------
-
-  // 名前
-  nameField.addEventListener("input", () => {
-    requireCheck(nameField, "お名前を入力してください。");
-  });
-
-  // メール
-  emailField.addEventListener("input", () => {
-    requireCheck(emailField, "メールアドレスを入力してください。");
-  });
-
-  // TEL（空欄 + 書式チェック）
-  telField.addEventListener("input", () => {
-    telField.setCustomValidity("");
-
-    if (telField.value.trim() === "") {
-      telField.setCustomValidity("電話番号を入力してください。");
-    } else if (!telPattern.test(telField.value)) {
-      telField.setCustomValidity("電話番号は正しい形式で入力してください。");
+    if (email.value.trim() === "") {
+      email.setCustomValidity("メールアドレスを入力してください。");
     }
-    telField.reportValidity();
-  });
 
-  // 第1希望 日付
-  date1.addEventListener("change", () => {
+    if (tel.value.trim() === "") {
+      tel.setCustomValidity("電話番号を入力してください。");
+    } else if (!telPattern.test(tel.value)) {
+      tel.setCustomValidity("電話番号は正しい形式で入力してください。");
+    }
+
+    // --- 第1希望（日付 & 時間） ----------------------
+    const date1 = form.elements["date1"];
+    const time1 = form.elements["time1"];
+
     date1.setCustomValidity("");
-    if (date1.value === "" || date1.value === "希望日を選択") {
+    time1.setCustomValidity("");
+
+    if (!date1.value || date1.value === "希望日を選択") {
       date1.setCustomValidity("第1希望の日付を選択してください。");
     }
-    date1.reportValidity();
-  });
-
-  // 第1希望 時間
-  time1.addEventListener("change", () => {
-    time1.setCustomValidity("");
-    if (time1.value === "" || time1.value === "時間を選択") {
+    if (!time1.value || time1.value === "時間を選択") {
       time1.setCustomValidity("第1希望の時間を選択してください。");
     }
-    time1.reportValidity();
-  });
 
-  // --------------------------------------
-  // 送信時：最終まとめチェック
-  // --------------------------------------
+    // --- 持ち込み点数（0・マイナス不可） ----------------------
+    const carryField = form.querySelector(".carry-row input");
+    carryField.setCustomValidity("");
+
+    if (carryField.value.trim() === "") {
+      carryField.setCustomValidity("持ち込み点数を入力してください。");
+    } else if (Number(carryField.value) <= 0) {
+      carryField.setCustomValidity("1以上の数値を入力してください。");
+    }
+
+    // --- 来店人数（1以上のみ） ------------------------------
+    const peopleField = form.querySelector(".people-count input");
+    peopleField.setCustomValidity("");
+
+    if (peopleField.value.trim() === "") {
+      peopleField.setCustomValidity("来店人数を入力してください。");
+    } else if (Number(peopleField.value) < 1) {
+      peopleField.setCustomValidity("1人以上で入力してください。");
+    }
+  }
+
+  // ====================================
+  // 送信処理
+  // ====================================
   form.addEventListener("submit", function (e) {
     e.preventDefault();
 
-    // クリア
-    nameField.setCustomValidity("");
-    emailField.setCustomValidity("");
-    telField.setCustomValidity("");
-    date1.setCustomValidity("");
-    time1.setCustomValidity("");
+    validateForm(); // ← 最終チェック
 
-    // 空欄チェック
-    if (nameField.value.trim() === "") {
-      nameField.setCustomValidity("お名前を入力してください。");
-    }
-
-    if (emailField.value.trim() === "") {
-      emailField.setCustomValidity("メールアドレスを入力してください。");
-    }
-
-    if (telField.value.trim() === "") {
-      telField.setCustomValidity("電話番号を入力してください。");
-    } else if (!telPattern.test(telField.value)) {
-      telField.setCustomValidity("電話番号は正しい形式で入力してください。");
-    }
-
-    if (date1.value === "" || date1.value === "希望日を選択") {
-      date1.setCustomValidity("第1希望の日付を選択してください。");
-    }
-
-    if (time1.value === "" || time1.value === "時間を選択") {
-      time1.setCustomValidity("第1希望の時間を選択してください。");
-    }
-
-    // チェックに引っかかったら送信しない
     if (!form.checkValidity()) {
       form.reportValidity();
       return;
     }
 
-    // ----------------------------
-    // Formspree 送信処理
-    // ----------------------------
+    // --- 送信 ---
     messageEl.textContent = "送信中です…";
     messageEl.style.color = "#555";
     messageEl.style.display = "block";
@@ -249,11 +215,10 @@ if (form) {
     })
       .then((response) => {
         if (response.ok) {
-          messageEl.textContent =
-            "送信が完了しました。ご予約ありがとうございます！";
+          messageEl.textContent = "送信が完了しました。ご予約ありがとうございます！";
           messageEl.style.color = "#1c2430";
-
           form.reset();
+
           const submitBtn = form.querySelector(".form-submit-btn");
           if (submitBtn) submitBtn.style.display = "none";
         } else {
