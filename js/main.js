@@ -1,4 +1,3 @@
-console.log("JS読み込まれてるよ！");
 
 // トップページ　時間選択
 
@@ -120,7 +119,9 @@ faqItems.forEach(item => {
   });
 });
 
-
+//  -----------------------------
+//  予約フォームのバリデーション
+//  -----------------------------
 const form = document.getElementById("reserve-form");
 const messageEl = document.getElementById("message");
 
@@ -131,8 +132,10 @@ if (form) {
     const name = form.elements["name"];
     const email = form.elements["email"];
     const tel = form.elements["tel"];
+    const agree = form.querySelector("input[name='agree']");
 
     const telPattern = /^0\d{1,4}-?\d{1,4}-?\d{3,4}$/;
+    
 
     name.setCustomValidity("");
     email.setCustomValidity("");
@@ -159,11 +162,11 @@ if (form) {
     date1.setCustomValidity("");
     time1.setCustomValidity("");
 
-    if (date1.value === "希望日を選択") {
+    if (date1.value === "") {
      date1.setCustomValidity("第1希望の日付を選択してください。");
     }
 
-    if (time1.value === "時間を選択") {
+    if (time1.value === "") {
      time1.setCustomValidity("第1希望の時間を選択してください。");
     }
 // -------------------------------------------

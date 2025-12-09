@@ -19,11 +19,7 @@
 
 <!-- メインビジュアル -->
   <div class="reserve-hero">
-    <img src="images/reserve_pc.jpeg"  class="reserve-hero-img"
-         alt="査定予約"
-         loading="lazy"
-         width="1536"
-         height="1024">
+    <img src="images/reserve_pc.jpeg"  class="reserve-hero-img" alt="査定予約">
     <div class="reserve-title">査定予約</div>
   </div>
 
@@ -58,7 +54,7 @@
 
       <div class="form-row double">
         <label>第1希望</label>
-        <select name="date1">
+        <select name="date1" required>
           <option>希望日を選択</option>
           <option>2025/11/11</option>
           <option>2025/11/12</option>
@@ -81,7 +77,7 @@
           
         </select>
 
-        <select name="time1">
+        <select name="time1" required>
           <option>時間を選択</option>
           <option>11:00</option>
           <option>12:00</option>
