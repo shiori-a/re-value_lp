@@ -1,4 +1,3 @@
-console.log("JS読み込まれてるよ！")
 // トップページ　時間選択
 
 const patternA = {
@@ -70,6 +69,7 @@ const reserveData = {
 const select = document.getElementById("date-select");
 const rows = document.querySelectorAll(".time-row");
 
+if (select && rows.length) {
 function updateTimeList(date) {
   const pattern = reserveData[date];
 
@@ -97,6 +97,7 @@ updateTimeList(select.value);
 select.addEventListener("change", () => {
   updateTimeList(select.value);
 });
+}
 
 const faqItems = document.querySelectorAll(".faq-item");
 
@@ -118,35 +119,140 @@ faqItems.forEach(item => {
 });
 
 
-//予約完了　
-document.addEventListener("DOMContentLoaded", function () {
- const form = document.getElementById("reserve-form");
- const thanksMessage = document.querySelector(".form-thanks");
+const form = document.getElementById("reserve-form");
+const messageEl = document.getElementById("message");
 
-form.addEventListener("submit", function (e) {
-   e.preventDefault();
+if (form) {
+  form.addEventListener("submit", function (e) {
+    e.preventDefault();
 
-  const formData = new FormData(form);
+    const name = form.elements["name"];
+    const email = form.elements["email"];
+    const tel = form.elements["tel"];
 
-  fetch(form.action, {
-    method: "POST",
-    body: formData,
-    headers: {
-      Accept: "application/json"
+    const telPattern = /^0\d{1,4}-?\d{1,4}-?\d{3,4}$/;
+
+    name.setCustomValidity("");
+    email.setCustomValidity("");
+    tel.setCustomValidity("");
+
+    if (name.value.trim() === "") {
+      name.setCustomValidity("お名前を入力してください。");
     }
-  })
-  .then((response) => {
-    if (response.ok) {
-      form.reset();                // フォーム初期化
-      form.style.display = "none"; // フォーム非表示
-      thanksMessage.style.display = "block"; // 完了メッセージ表示
-    } else {
-      alert("送信に失敗しました。もう一度お試しください。");
+
+    if (email.value.trim() === "") {
+      email.setCustomValidity("メールアドレスを入力してください。");
     }
-  })
-  .catch((error) => {
-    alert("通信エラーが発生しました。");
-    console.error(error);
+
+    if (tel.value.trim() === "") {
+      tel.setCustomValidity("電話番号を入力してください。");
+    } else if (!telPattern.test(tel.value)) {
+      tel.setCustomValidity("電話番号は正しい形式で入力してください。");
+    }
+
+    // --- 第1希望の必須チェック ------------------
+    const date1 = form.elements["date1"];
+    const time1 = form.elements["time1"];
+
+    date1.setCustomValidity("");
+    time1.setCustomValidity("");
+
+    if (date1.value === "希望日を選択") {
+     date1.setCustomValidity("第1希望の日付を選択してください。");
+    }
+
+    if (time1.value === "時間を選択") {
+     time1.setCustomValidity("第1希望の時間を選択してください。");
+    }
+// -------------------------------------------
+
+
+    if (!form.checkValidity()) {
+      form.reportValidity();
+      return;
+    }
+
+    messageEl.textContent = "送信中です…";
+    messageEl.style.color = "#555";
+    messageEl.style.display = "block";
+
+    fetch(form.action, {
+      method: "POST",
+      body: new FormData(form),
+      headers: { Accept: "application/json" },
+    })
+    .then(response => {
+      if (response.ok) {
+        messageEl.textContent = "送信が完了しました。ご予約ありがとうございます！";
+        messageEl.style.color = "#1c2430";
+        form.reset();
+
+        const submitBtn = form.querySelector(".form-submit-btn");
+        if (submitBtn) submitBtn.style.display = "none";
+      } else {
+        messageEl.textContent = "送信に失敗しました。もう一度お試しください。";
+        messageEl.style.color = "red";
+      }
+    })
+    .catch(() => {
+      messageEl.textContent = "通信エラーが発生しました。";
+      messageEl.style.color = "red";
+    });
   });
+}
+
+
+// ===============================
+// 複数希望で「同じ日時」を選べないようにする処理
+// ===============================
+
+const dateSelects = [
+  document.querySelector('[name="date1"]'),
+  document.querySelector('[name="date2"]'),
+  document.querySelector('[name="date3"]')
+];
+
+const timeSelects = [
+  document.querySelector('[name="time1"]'),
+  document.querySelector('[name="time2"]'),
+  document.querySelector('[name="time3"]')
+];
+
+function updateDisabledOptions() {
+  const selectedPairs = [];
+
+  dateSelects.forEach((dateSelect, index) => {
+    const timeSelect = timeSelects[index];
+    const date = dateSelect.value;
+    const time = timeSelect.value;
+
+    if (date !== "希望日を選択" && time !== "時間を選択") {
+      selectedPairs.push(`${date}_${time}`);
+    }
+  });
+
+  dateSelects.forEach((dateSelect, i) => {
+    timeSelects[i].querySelectorAll("option").forEach(option => {
+      option.disabled = false;
+    });
+  });
+
+  dateSelects.forEach((dateSelect, i) => {
+    timeSelects[i].querySelectorAll("option").forEach(option => {
+      const date = dateSelect.value;
+      const pair = `${date}_${option.value}`;
+
+      if (selectedPairs.includes(pair)) {
+        option.disabled = true;
+      }
+    });
+  });
+}
+
+dateSelects.forEach(select => {
+  select.addEventListener("change", updateDisabledOptions);
 });
+
+timeSelects.forEach(select => {
+  select.addEventListener("change", updateDisabledOptions);
 });
