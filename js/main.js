@@ -1,3 +1,5 @@
+console.log("JS読み込まれてるよ！");
+
 // トップページ　時間選択
 
 const patternA = {
@@ -249,28 +251,39 @@ function updateDisabledOptions() {
   });
 }
 
-dateSelects.forEach(select => {
-  select.addEventListener("change", updateDisabledOptions);
-});
+// 日付セレクト
+if (dateSelects && dateSelects.length > 0) {
+  dateSelects.forEach(select => {
+    if (select) {
+      select.addEventListener("change", updateDisabledOptions);
+    }
+  });
+}
 
-timeSelects.forEach(select => {
-  select.addEventListener("change", updateDisabledOptions);
-});
+// 時間セレクト
+if (timeSelects && timeSelects.length > 0) {
+  timeSelects.forEach(select => {
+    if (select) {
+      select.addEventListener("change", updateDisabledOptions);
+    }
+  });
+}
 
 
 // =============================
 // フェードイン（スクロール）
 // =============================
-const fadeTargets = document.querySelectorAll('.fade-target');
+document.addEventListener("DOMContentLoaded", () => {
+  const targets = document.querySelectorAll('.fade-target');
 
-const observer = new IntersectionObserver((entries) => {
-  entries.forEach(entry => {
-    if (entry.isIntersecting) {
-      entry.target.classList.add('fade-in');
-    }
-  });
-}, {
-  threshold: 0.2 // 20%見えたら発火
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('fade-in');
+        observer.unobserve(entry.target); // 一度だけ発火
+      }
+    });
+  }, { threshold: 0.2 });
+
+  targets.forEach(target => observer.observe(target));
 });
-
-fadeTargets.forEach(target => observer.observe(target));
