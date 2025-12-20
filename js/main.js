@@ -1,3 +1,32 @@
+// 参加方法
+//　スクロールアニメーションの制御
+const observeSteps = () => {
+  const targets = document.querySelectorAll('.step-item');
+  
+  const options = {
+    root: null, // ビューポートを基準にする
+    rootMargin: '0px',
+    threshold: 0.2 // 20%見えたら発火
+  };
+
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach((entry) => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('is-visible');
+        // 一度表示されたら監視を解除（何度も動かしたくない場合）
+        observer.unobserve(entry.target);
+      }
+    });
+  }, options);
+
+  targets.forEach((target) => {
+    observer.observe(target);
+  });
+};
+
+// ページ読み込み完了時に実行
+window.addEventListener('DOMContentLoaded', observeSteps);
+
 
 // トップページ　時間選択
 
@@ -100,21 +129,36 @@ select.addEventListener("change", () => {
 });
 }
 
+// ===========================
+// FAQ 開閉
+// ===========================
 const faqItems = document.querySelectorAll(".faq-item");
 
 faqItems.forEach(item => {
   const btn = item.querySelector(".faq-question");
   const answer = item.querySelector(".faq-answer");
+  const icon = item.querySelector(".faq-icon");
 
   btn.addEventListener("click", () => {
     const isOpen = item.classList.contains("open");
 
-    if (isOpen) {
-      answer.style.height = "0px";
-      item.classList.remove("open");
-    } else {
-      answer.style.height = answer.scrollHeight + 20 + "px";
+    // 一旦すべて閉じる（アコーディオン方式の場合）
+    // faqItems.forEach(i => {
+    //   i.classList.remove("open");
+    //   i.querySelector(".faq-answer").style.height = 0;
+    //   i.querySelector(".faq-icon").textContent = "▶";
+    // });
+
+    if (!isOpen) {
+      // 開く処理
       item.classList.add("open");
+      answer.style.height = answer.scrollHeight + "px";
+      icon.textContent = "▼";  // ← 下向きに変更
+    } else {
+      // 閉じる処理
+      item.classList.remove("open");
+      answer.style.height = 0;
+      icon.textContent = "▶";  // ← 右向きに変更
     }
   });
 });

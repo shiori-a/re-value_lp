@@ -35,7 +35,7 @@ h1, h2 {
   font-family: "Space Grotesk", sans-serif;
   color: #1C2430;
   letter-spacing: 0.1rem;
-  font-size: 2rem;
+  font-size: 2.3rem;
 }
 
 h3{
@@ -45,7 +45,6 @@ h3{
   font-size: 1.7rem;
 }
 
-
 /* ヘッダー */
 .header {
   height: 60px;             /* 背景画像とのズレ防止！ */
@@ -54,6 +53,8 @@ h3{
   padding: 0 1.6rem;
   margin-top: 2rem;
 }
+
+
 
 .header-logo-block {
   display: flex;
@@ -87,161 +88,115 @@ h3{
 }
 
 
-/* 全体 */
+/* --- ファーストビュー全体 --- */
 .fv {
-  position: relative;
   width: 100%;
-  min-height: 95vh;                 
-  
-  background-image: url("images/fv.jpg");
-  background-size: cover;           /* ← ここは cover に戻してOK */
+  background-color: #fff;
+}
+
+.fv-visual {
+  width: 100%;
+  aspect-ratio: 1 / 1.8; /* 画像比率に合わせて調整 */
+  background-image: url("images/fv3.jpg");
+  background-size: contain;
   background-repeat: no-repeat;
   background-position: center top;
-
-  padding: 4rem 2rem 3rem;          /* ← 上と下にしっかり余白 */
 }
 
+.fv-inner {
+  width: 100%;
+  padding: 10px 20px 30px;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-image: url("images/btn-bg.jpg");
+  background-size: cover;
+  background-position: center center;
+  background-repeat: no-repeat;
 
-h1{
-  font-size: 2.3rem;
-  letter-spacing: 0.08rem;
-  padding-left: 1rem;
 }
 
-.fv-inner{
-  display: block;
-}
-
-.fv-right{
-  margin-top: 2;
-}
-/* メインコピー */
-.fv-copy {
-  font-size: 1.7rem;
-  color: #1C2430;
-  line-height: 0.9;
-  margin-bottom: 1.6rem;
-  margin-top: 2rem;
-  font-weight: 500;
-}
-
-.fv-copy .big {
-  font-size: 3.5rem;
-  font-weight: 700;
-}
-
-/* バッジ */
-.fv-badge {
-  position: absolute;
-  top:  3%;
-  right: 4%;
-  background:  linear-gradient(
-    to bottom,
-     #E3C46B 35%,
-     #fff4d5 75%,
-     #fff 100%
-  );
-  border: 0.1rem solid #E3C46B;
-  color: #1C2430;
+/* --- 【重要】ここがポイント：ボタン2つを包むエリア --- */
+.fv-cta {
+  width: 100%;
+  max-width: 360px;
+  padding: 20px; /* 背景画像が見えるように内側に余白を作る */
   
-  width: 27vw;
-  height: 27vw;
-  max-width: 100px;
-  max-height: 100px;
-  
-  border-radius: 50%;
+}
+
+/* --- ボタン共通設定（元の色と形を維持） --- */
+.cta-btn {
   display: flex;
   align-items: center;
   justify-content: center;
-  text-align: center;
-  line-height: 1.4;
-}
-
-.fv-badge-text {
-  font-size: 4.2vw;
-  font-weight: 600;
-  line-height: 1.4;
-}
-
-/* バッグ画像 */
-.fv-bags {
   width: 100%;
-  margin-left: 2rem;
-}
-
-/* サブ説明 */
-.fv-sub p {
-  color: #333;
-  font-size: 1.3rem;
-  line-height: 1.5;
-  margin-left: -18rem;
-  margin-bottom: 16px;
-  text-align: center;
+  height: 56px;
+  border-radius: 6px;
+  font-size: 1.65rem;
+  font-weight: bold;
+  text-decoration: none;
   letter-spacing: 0.1rem;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  transition: opacity 0.3s;
 }
 
-/* メイン訴求 */
-.fv-title {
+/* --- メインボタン（元の紺色） --- */
+.cta-main {
+  background-color: #1C2430;
+  color: #fff;
+  font-size: 1.7rem;
+  letter-spacing: 0.2rem;
+  margin-bottom: 2rem;
+}
+
+/* --- LINEボタン（元のグレー） --- */
+.cta-line {
+  background-color: #D9DDE2;
   color: #1C2430;
-  font-size: 2.4rem;
-  font-weight: 800;
-  margin: 1.2rem;
-  text-align: center;
+  margin-bottom: 0; 
+  font-size: 1.7rem;
   letter-spacing: 0.2rem;
 }
-
-/* 注意書き */
-.fv-note {
-  color: #333;
-  font-size: 1.2rem;
-  margin-bottom: 28px;
-}
-
-/* CTA */
-.cta-btn {
-  display: block;
-  text-align: center;
-  padding: 14px 0;
-  border-radius: 6px;
-  font-size: 1.7rem;
-  margin-bottom: 12px;
-  letter-spacing: 0.1rem;
-  text-decoration: none;
-  font-weight: 500;
-}
-
-/* メインCTA */
-.cta-main {
-  background: #1C2430;
-  color: #fff;
-}
-
-/* LINEボタン */
-.cta-line {
-  background: #D9DDE2;
-  color: #1C2430;
-}
-
 
 
 /* 外側の背景（bodyで設定しているなら不要） */
 .steps-wrapper {
-  padding: 48px 16px;
+  padding: 48px 20px;
 }
 
 /* 中央の白ボックス */
 .steps-box {
   background-color: #FFFFFF;
-  border: 0.1rem solid #E3C46B; /* ゴールド */
+  border: 0.15rem solid #E3C46B; /* ゴールド */
   border-radius: 0.4rem;
-  padding: 40px 24px;
+  padding: 40px 20px;
 }
 
 /* タイトル */
 .steps-title {
   font-weight: 700;
   text-align: center;
-  margin-bottom: 40px;
+  margin-bottom: 50px;
+  position: relative;
+  display: block;
+  opacity: 0;
+  transform: translateY(30px);
+  transition: all 0.8s ease-out;
+}
+.step-item.is-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+/* タイトルの下に金色の二重線を入れる */
+.steps-title::after {
+  content: '';
+  display: block;
+  width: 90px;
+  height: 4px;
+  background: linear-gradient(90deg, #E3C46B, #f9f0d1, #E3C46B);
+  margin: 8px auto 0;
+  border-radius: 2px;
 }
 
 /* STEPの並び（SP用） */
@@ -660,10 +615,6 @@ h1{
 .faq-item.open .faq-answer {
   padding-top: 1.6rem;
   padding-bottom:5rem;
-}
-
-.faq-item.open .faq-icon {
-  transform: rotate(180deg);
 }
 
 .bold{
