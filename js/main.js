@@ -1,12 +1,12 @@
 // 参加方法
 //　スクロールアニメーションの制御
 const observeSteps = () => {
-  const targets = document.querySelectorAll('.steps-label, .step-item');
+  const targets = document.querySelectorAll('.step-label, .step-text, .step-img');
   
   const options = {
     root: null, // ビューポートを基準にする
     rootMargin: '0px',
-    threshold: 0.2 // 20%見えたら発火
+    threshold: 0.2
   };
 
   const observer = new IntersectionObserver((entries) => {

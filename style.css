@@ -192,17 +192,29 @@ h3{
 
 /* 各項目のタイトルとアイテム全体：アニメーションをつける */
 .step-label,
-.step-item {
+.step-text ,
+.step-img {
   opacity: 0;
   transform: translateY(30px);
   transition: all 0.8s ease-out;
 }
 
+.step-label.is-visible{
+  transition-delay: 0s;
+}
+
+.step-text.is-visible,
+.step-img.is-visible {
+  transition-delay: 0.5s;
+}
+
 .step-label.is-visible,
-.step-item.is-visible {
+.step-text.is-visible,
+.step-img.is-visible {
   opacity: 1;
   transform: translateY(0);
 }
+
 /* タイトルの下に金色の二重線を入れる */
 .steps-title::after {
   content: '';
