@@ -94,29 +94,36 @@ h3{
   background-color: #fff;
 }
 
-.fv-visual {
+.fv-container {
   width: 100%;
-  aspect-ratio: 1 / 1.8; /* 画像比率に合わせて調整 */
-  background-image: url("images/fv3.jpg");
-  background-size: contain;
-  background-repeat: no-repeat;
-  background-position: center top;
+  position: relative; /* 子要素（fv-inner）の基準になる */
+  line-height: 0;     /* 画像の下にできる謎の隙間を消す */
+}
+
+.fv-image {
+  width: 100%;
+  height: auto;       /* 比率はブラウザが自動計算してくれる */
+  display: block;
 }
 
 .fv-inner {
+  position: absolute;
+  /* マイナスを使わず、プラスの値で「下からどのくらい浮かせるか」を指定 */
+  bottom: 30px; 
+  
+  left: 0;
+  right: 0;
+  margin: auto;
+  
   width: 100%;
-  padding: 10px 20px 30px;
+  max-width: 380px;
+  padding: 0 20px;
   box-sizing: border-box;
   display: flex;
   flex-direction: column;
   align-items: center;
-  background-image: url("images/btn-bg.jpg");
-  background-size: cover;
-  background-position: center center;
-  background-repeat: no-repeat;
-
+  z-index: 10;
 }
-
 /* --- 【重要】ここがポイント：ボタン2つを包むエリア --- */
 .fv-cta {
   width: 100%;
