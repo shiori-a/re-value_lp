@@ -1,7 +1,7 @@
 // 参加方法
 //　スクロールアニメーションの制御
 const observeSteps = () => {
-  const targets = document.querySelectorAll('.step-label, .step-text, .step-img');
+  const targets = document.querySelectorAll('.step-label, .step-text, .step-img, .cta-btn, .safety-img, .store-btn');
   
   const options = {
     root: null, // ビューポートを基準にする

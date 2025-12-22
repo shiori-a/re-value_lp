@@ -148,6 +148,24 @@ h3{
   transition: opacity 0.3s;
 }
 
+/* すべてのCTAボタンの初期状態 */
+.cta-btn {
+  opacity: 0;
+  transform: translateY(30px);
+  transition: opacity 1.2s ease-out, transform 1.2s ease-out;
+}
+
+/* 表示された時（JSでこのクラスが付与される） */
+.cta-btn.is-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* FV（ファーストビュー）にあるボタンだけ、少し遅らせて高級感を出す */
+.fv .cta-btn.is-visible {
+  transition-delay: 0.5s;
+}
+
 /* --- メインボタン（元の紺色） --- */
 .cta-main {
   background-color: #1C2430;
@@ -259,276 +277,75 @@ h3{
 }
 
 
+/* セクション全体 */
 .benefit-wrapper {
-  padding: 4rem 1.6rem;
+  padding: 40px 20px;
 }
 
-.benefit-box {
-  background: #F9F6F0; /* 淡いベージュ背景 */
-  border: none; /* 枠線なし */
-  border-radius: 0.6rem;
-  padding: 3rem 2rem;
-  max-width: 80rem;
-  margin: 0 auto;
-
-  /* ドロップシャドウ（柔らかい影） */
-  box-shadow: 0 14px 40px rgba(0, 0, 0, 0.25);
-}
-
-
-/* タイトル */
+/* タイトル：参加方法と同じデザイン */
 .benefit-title {
   text-align: center;
   font-weight: 700;
-  position:relative;
-  padding-bottom: 0.3rem;
-}
-
-/* タイトル下のゴールドライン */
-.benefit-title::after {
-  content: "";
-  position: absolute;
-  left: 50%;
-  bottom: 0;
-  transform: translateX(-50%);
-  width: 6rem;         /* ラインの長さ（お好みで調整） */
-  height: 0.15rem;     /* ラインの太さ */
-  background-color: #E3C46B;
-  border-radius: 1rem;
-}
-
-
-/* バッジ＋画像 */
-.benefit-badge-img {
-  display: flex;
-  align-items: center;
-  gap: 2rem;
-  margin-bottom: 2.4rem;
-}
-
-/* バッジの箱：ここでサイズを決める */
-.benefit-badge {
+  letter-spacing: 0.15rem;
+  margin-bottom: 30px; /* 画像との間隔 */
   position: relative;
-  width: 7rem;      /* バッジの大きさ：ここだけ変えればOK */
-  aspect-ratio: 1 / 1;
-  flex-shrink: 0;
-  transform: translateY(-5rem);
-}
-
-.badge-shape {
-  width: 100%;
-  height: 100%;
-  object-fit: contain;
   display: block;
 }
 
-/* 当選テキストをど真ん中に重ねる */
-.badge-text {
+/* タイトル下の金線（参加方法と共通） */
+.benefit-title::after {
+  content: '';
+  display: block;
+  width: 90px;
+  height: 4px;
+  background: linear-gradient(90deg, #E3C46B, #f9f0d1, #E3C46B);
+  margin: 8px auto 0;
+  border-radius: 2px;
+}
+
+/* 画像とボタンを包むエリア */
+.benefit-visual-unit {
+  position: relative;
+  width: 100%;
+  line-height: 0;
+}
+
+.benefit-banner-img {
+  width: 100%;
+  height: auto;
+  border-radius: 4px; /* 少し角丸にするとバナーが綺麗に見えます */
+}
+
+/* ボタンを包むエリア：画像の上に絶対配置 */
+.benefit-cta {
   position: absolute;
-  inset: 0;
+  bottom: 25px; /* Photoshop画像の余白に合わせて調整 */
+  left: 0;
+  right: 0;
+  padding: 0 20px;
+  display: flex;
+  flex-direction: column; /* 縦に並べる */
+  gap: 10px; /* ボタン同士の隙間 */
+  align-items: center;
+}
+
+/* 共通のボタン設定 */
+.benefit-cta .cta-btn {
+  width: 100%;
+  max-width: 320px;
+  height: 50px; /* FVと合わせる */
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 2rem;
+  text-decoration: none;
   font-weight: 700;
-  color: #1C2430;   /* お好みで */
-}
-.benefit-img {
-  width:90%;
-  padding-right: 5rem;
-  padding-top: 3rem;
-  border-radius: 0.4rem;
-  object-fit: cover;
-}
-
-/* ブランドバッグ当選情報 */
-.benefit-main-top{
-  display: flex;
-  justify-content: space-between;
-  align-items: flex-end;
-}
-
-.benefit-item-left p{
-  margin: 0;
-  line-height: 1.6;
-}
-
-.benefit-item-title {
-  font-size: 2rem;
-  font-weight: 700;
-}
-
-.benefit-small {
-  font-size: 1.2rem;
-  color: #666;
-  margin-bottom: 0.8rem;
-}
-
-.benefit-date {
-  font-size: 1.3rem;
-  color: #333;
-  margin-bottom: 0;
-  line-height: 1.4;
-}
-
-.benefit-highlight {
-  color: #333;
-  font-weight: 700;
-  font-size: 1.8rem;
-}
-
-/* 右側：10名様 */
-.benefit-item-right {
-  text-align: right;
-}
-
-.benefit-number {
-  font-size: 3.6rem;
-  font-weight: 900;
-  color: #E3C46B;
-  line-height: 1;
-  font-family: 'Noto Serif JP';
-}
-
-.benefit-unit {
-  font-size: 1.4rem;
-  margin-left: 0.3rem;
-}
-
-.benefit-date {
-  margin: 0 0 3rem;
+  border-radius: 8px;
   font-size: 1.5rem;
-  color: #1c2430;
-  font-weight: 500;
-}
-
-/* 参加者全員部分 */
-.benefit-everyone {
-  display: flex;
-  gap: 1.6rem;
-  margin-bottom: 3rem;
-}
-
-.benefit-everyone-label {
-  font-size: 1.4rem;
-  font-weight: 600;
-  white-space: nowrap;
-  color: #1c2430;
-}
-
-.benefit-everyone-content {
-  line-height: 1.5;
-  color: #1c2430;
-}
-
-.benefit-coupon {
-  font-size: 1.8rem;
-  font-weight: 600;
-  letter-spacing: 0.1rem;
-}
-
-.benefit-expire {
-  font-size: 1.2rem;
-  letter-spacing: 0.1rem;
-}
-
-.benefit-note {
-  font-size: 1.2rem;
-  font-weight: 500;
 }
 
 
 
-/* セクション全体（背景はbodyのをそのまま使う） */
-.availability-section {
-  padding: 2.4rem 1.6rem  ;
-}
-
-/* 中央の白ボックス */
-.availability-box {
-  background: #FFFFFF;
-  border-radius: 0.4rem;
-  padding: 2rem 1.6rem 5rem;
-  max-width: 80rem;
-  margin: 0 auto;
-}
-
-/* タイトル */
-.availability-title {
-  text-align: center;
-  font-size: 2rem;
-  font-weight: 700;
-  margin-bottom: 2rem;
-}
-
-/* プルダウン */
-.date-select-box {
-  position: relative;
-  background: #E9E9EC;
-  padding: 1.4rem 1rem;
-  border-radius: 0.4rem;
-  margin-bottom: 3rem;
-}
-
-/* ▼ カスタム矢印 */
-.date-select-box::after {
-  content: "▼";
-  position: absolute;
-  right: 1.6rem;
-  top: 50%;
-  transform: translateY(-50%);
-  font-size: 1.4rem;
-  color: #1C2430;
-  pointer-events: none;         /* ← 矢印クリックしてもセレクトが開くように */
-}
-
-.date-select {
-  width: 100%;
-  border: none;
-  background: transparent;
-  font-size: 1.6rem;
-  color: #1C2430;
-  appearance: none;
-  padding-right: 3rem;
-}
-
-/* 時間リスト */
-.time-list {
-  background: #E9E9EC;
-  padding: 1.6rem;
-  border-radius: 0.4rem;
-}
-
-.time-row {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 1.2rem 0;
-  border-bottom: 1px solid rgba(0,0,0,0.06);
-  font-size: 1.5rem;
-  font-weight: 500;
-}
-
-.time-row:last-child {
-  border-bottom: none;
-}
-
-.status {
-  font-size: 2.4rem;
-  margin-right: 1rem;
-}
-
-/* ◯（空き） */
-.status.available {
-  color: #1C2430; /* 黒に近いネイビー */
-}
-
-/* ×（満枠） */
-.status.full {
-  color: #C15B4E; /* 赤 */
-}
-
-
+/*安心ポイント*/
 .safety-section {
   padding: 4rem 1.6rem;
   text-align: center;  /* ← セクション全体を中央揃えに */
@@ -543,14 +360,15 @@ h3{
   position: relative;
 }
 
-.safety-title .underline {
-  width: 24rem;
-  height: 0.1rem;
-  background: #E3C46B;
+.safety-title::after {
+  content: '';
   display: block;
-  margin: 0.4rem auto 0;  /* ← 中央揃え */
+  width: 90px;
+  height: 4px;
+  background: linear-gradient(90deg, #E3C46B, #f9f0d1, #E3C46B);
+  margin: 8px auto 0;
+  border-radius: 2px;
 }
-
 /* 各項目 */
 .safety-item {
   margin-bottom: 5rem;
@@ -571,6 +389,19 @@ h3{
   margin-bottom: 1.6rem;
 }
 
+/* 画像の初期状態：少し下げて透明にする */
+.safety-img {
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 1.0s ease-out, transform 1.0s ease-out;
+}
+
+/* JSでクラスがついた時の状態 */
+.safety-img.is-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
 /* テキスト */
 .safety-text {
   font-size: 1.2rem;
@@ -588,10 +419,21 @@ h3{
 
 .faq-title {
   text-align: center;
-  font-size: 2rem;
   font-weight: 700;
   margin-bottom: 2rem;
+  letter-spacing: 0.15rem;
 }
+
+.faq-title::after {
+  content: '';
+  display: block;
+  width: 90px;
+  height: 4px;
+  background: linear-gradient(90deg, #E3C46B, #f9f0d1, #E3C46B);
+  margin: 8px auto 0;
+  border-radius: 2px;
+}
+
 
 /* 各Qボタン */
 .faq-item {
@@ -655,10 +497,21 @@ h3{
 /* セクションタイトル */
 .store-title {
   text-align: center;
-  font-size: 2rem;
   font-weight: 700;
   margin-bottom: 2rem;
+  letter-spacing: 0.15rem;
 }
+
+.store-title::after {
+  content: '';
+  display: block;
+  width: 90px;
+  height: 4px;
+  background: linear-gradient(90deg, #E3C46B, #f9f0d1, #E3C46B);
+  margin: 8px auto 0;
+  border-radius: 2px;
+}
+
 
 /* 店舗名 */
 .store-name {
@@ -725,6 +578,18 @@ h3{
   transition: 0.2s;
 }
 
+.store-btn {
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 1.0s ease-out, transform 1.0s ease-out;
+}
+
+/* JSでクラスがついた時の状態 */
+.store-btn.is-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
 
 
 /* Googleマップ画像 */
@@ -747,6 +612,17 @@ h3{
   margin-bottom: 0.5rem;
   letter-spacing: 0.1rem;
 }
+
+.campaign-title::after {
+  content: '';
+  display: block;
+  width: 150px;
+  height: 4px;
+  background: linear-gradient(90deg, #E3C46B, #f9f0d1, #E3C46B);
+  margin: 8px auto 0;
+  border-radius: 2px;
+}
+
 
 .campaign-sub {
   font-size: 1.7rem;
@@ -914,6 +790,96 @@ h3{
 }
 
 /* 予約フォームページ */
+
+/* セクション全体（背景はbodyのをそのまま使う） */
+.availability-section {
+  padding: 2.4rem 1.6rem  ;
+}
+
+/* 中央の白ボックス */
+.availability-box {
+  background: #FFFFFF;
+  border-radius: 0.4rem;
+  padding: 2rem 1.6rem 5rem;
+  max-width: 80rem;
+  margin: 0 auto;
+}
+
+/* タイトル */
+.availability-title {
+  text-align: center;
+  font-size: 2rem;
+  font-weight: 700;
+  margin-bottom: 2rem;
+}
+
+/* プルダウン */
+.date-select-box {
+  position: relative;
+  background: #E9E9EC;
+  padding: 1.4rem 1rem;
+  border-radius: 0.4rem;
+  margin-bottom: 3rem;
+}
+
+/* ▼ カスタム矢印 */
+.date-select-box::after {
+  content: "▼";
+  position: absolute;
+  right: 1.6rem;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 1.4rem;
+  color: #1C2430;
+  pointer-events: none;         /* ← 矢印クリックしてもセレクトが開くように */
+}
+
+.date-select {
+  width: 100%;
+  border: none;
+  background: transparent;
+  font-size: 1.6rem;
+  color: #1C2430;
+  appearance: none;
+  padding-right: 3rem;
+}
+
+/* 時間リスト */
+.time-list {
+  background: #E9E9EC;
+  padding: 1.6rem;
+  border-radius: 0.4rem;
+}
+
+.time-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1.2rem 0;
+  border-bottom: 1px solid rgba(0,0,0,0.06);
+  font-size: 1.5rem;
+  font-weight: 500;
+}
+
+.time-row:last-child {
+  border-bottom: none;
+}
+
+.status {
+  font-size: 2.4rem;
+  margin-right: 1rem;
+}
+
+/* ◯（空き） */
+.status.available {
+  color: #1C2430; /* 黒に近いネイビー */
+}
+
+/* ×（満枠） */
+.status.full {
+  color: #C15B4E; /* 赤 */
+}
+
 .reserve-form-section {
   width: 92%;
   margin: 0 auto;
