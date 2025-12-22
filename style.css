@@ -640,25 +640,22 @@ h3{
 }
 
 .campaign-sub {
-  color: #E3C46B;
-  font-size: 1.4rem;
-  font-weight: 700;
+  background: linear-gradient(90deg, #E3C46B, #f9f0d1, #E3C46B);
+  color: #1c2430;
+  text-shadow: 
+    1px 1px 2px rgba(0, 0, 0, 0.2);
+  
   display: inline-block;
-  position: relative;
-  overflow: hidden; /* 光がはみ出ないように */
-  margin-bottom: 2rem;
-  /* 光沢感を出すための下準備 */
-  background: linear-gradient(120deg, transparent 40%, rgba(255,255,255,0.8) 50%, transparent 60%);
-  background-size: 200% 100%;
-  -webkit-background-clip: text; /* 文字の形に切り抜く */
-  animation: shine 3s infinite;
-}
+  font-size: 1.3rem;
+  font-weight: 700;
+  padding: 6px 30px;
+  border-radius: 50px; /* 角を丸くして上品なリボン風に */
+  margin-top: 1rem;
+  margin-bottom: 2.5rem;
+  letter-spacing: 0.1rem;
 
-@keyframes shine {
-  0% { background-position: 200% 0; }
-  100% { background-position: -200% 0; }
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
 }
-
 
 /* 画像とボタンを重ねるための親要素 */
 .campaign-visual-unit {
@@ -679,7 +676,7 @@ h3{
 /* ボタンの配置：画像の下側に重ねる */
 .campaign-cta-container {
   position: absolute;
-  bottom: 25px; /* 画像内の文字に被らないよう調整 */
+  bottom: 35px; /* 画像内の文字に被らないよう調整 */
   left: 0;
   right: 0;
   padding: 0 15px;
@@ -699,6 +696,7 @@ h3{
 .campaign-links {
   text-align: left;
   margin: 0 auto 6rem;
+  margin-top: 2rem;
   max-width: 300px;
 }
 
