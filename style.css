@@ -531,13 +531,29 @@ h3{
 }
 
 /* 店舗外観写真 */
-.store-img {
+/* パララックスの窓（外枠） */
+.store-parallax-window {
   width: 100%;
+  height: 350px; /* スマホでの表示高さ */
+  overflow: hidden; /* はみ出た部分を隠す */
+  position: relative;
   border-radius: 0.4rem;
   margin-bottom: 3rem;
 }
 
-.store-info {
+/* 中の画像 */
+.store-img {
+  position: absolute;
+  top: -10%;
+  left: 0;
+  width: 100%;
+  height: 160%; /* 枠より大きくして、上下に動く余裕を作る */
+  object-fit: cover;
+  will-change: transform; /* アニメーションを滑らかにする */
+  margin-bottom: 0; /* window側で管理するので0に */
+  }
+  
+  .store-info {
   font-size: 1.3rem;
   line-height: 1.8;
   color: #333;
@@ -1569,6 +1585,10 @@ h3{
     grid-column: 1;
     grid-row: 1 / 3; /* 2行ぶち抜き */
     width: 100%;
+  }
+
+  .store-parallax-window {
+    height: 400px; /* PCでは高さを出すとかっこいい */
   }
 
   /* 店名（PC版では画像の右側に移動） */

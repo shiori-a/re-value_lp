@@ -27,8 +27,31 @@ const observeSteps = () => {
 // ページ読み込み完了時に実行
 window.addEventListener('DOMContentLoaded', observeSteps);
 
+// パララックス処理
+const handleStoreParallax = () => {
+  const parallaxImg = document.querySelector('.js-parallax');
+  if (!parallaxImg) return;
 
-// トップページ　時間選択
+  const parent = parallaxImg.parentElement;
+  const rect = parent.getBoundingClientRect();
+  const windowHeight = window.innerHeight;
+
+  // 画面内に「窓」が入っている時だけ計算
+  if (rect.top < windowHeight && rect.bottom > 0) {
+    // 画面中央からの位置に基づいて、ズレ（shift）を計算
+    // 0.1 の数値を変えると動く速さが変わります
+    const shift = (rect.top - windowHeight / 2) * 0.25;
+    parallaxImg.style.transform = `translateY(${shift}px)`;
+  }
+};
+
+// 以下のスクロールイベントを追加
+window.addEventListener('scroll', handleStoreParallax);
+
+window.addEventListener('DOMContentLoaded', handleStoreParallax);
+
+
+// 予約ページ　時間選択
 
 const patternA = {
   "11:00": "◯",
