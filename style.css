@@ -1595,6 +1595,38 @@ h3{
     margin: 2rem 0 5rem 0;
   }
 
+  .campaign-visual-unit{
+    position: relative;
+    width: 100%;
+    max-width: 1400px;
+    margin: 0 auto;
+  }
+
+  .campaign-banner-img{
+    width: 100%;
+    height: auto;
+    display: block;
+    content: url(images/tokuten_pc2.jpg);
+  }
+
+  .campaign-cta-container{
+    position: absolute;
+    bottom: 6%;
+    left: 50%;
+    transform: translateX(-50%);
+
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    gap: 40px;
+    width: 100%;
+  }
+
+  .campaign-cta-container .cta-btn{
+    width: 32rem;
+    margin: 0;
+    letter-spacing: 0.15rem;
+  }
   .campaign-buttons-wrapper {
     display: flex;
     justify-content: center;
@@ -1603,21 +1635,7 @@ h3{
     margin: 3rem 0;
   }
 
-  /* ボタンのサイズ統一（PCで綺麗に見える） */
-  .cta-main,
-  .cta-line {
-    width: 32rem;
-    margin: 0; /* SP版の margin をリセット */
-    font-size: 2rem;
-    letter-spacing: 0.15rem;
-  }
 
-  /* 「または」 */
-  .campaign-or {
-    margin: 0;
-    font-size: 2rem;
-    letter-spacing: 0.1rem;
-  }
 
   /* 注意事項リンクを横並び */
   .campaign-links {
