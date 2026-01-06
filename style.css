@@ -1170,132 +1170,67 @@ h3{
     font-size: 3rem;
   }
 
-  /* PC版　FV*/
 .fv {
-  width: 100%;
-  background-image: url("images/fv_pc.jpg");
-  background-size: cover;
-  background-repeat: no-repeat;
-  background-position: center top;
-  padding: 0;   /* ← 横paddingは絶対に入れない */
-  padding-bottom: 6rem;
-}
-
- .fv-inner {
-    max-width: 1100px;   /* 1440 - 180×2 */
-    margin: 0 auto;
-    min-height: 95vh;
-    padding: 8rem 0 10rem;
-
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    grid-template-rows: auto auto auto auto;
-    column-gap: 6rem;   
-    align-items: center;
+    width: 100%;
+    /* 背景画像の設定 */
+    background-image: url("images/fv_pc2.jpg");
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center top;
+    
+    /* 重要：画像のアスペクト比に合わせて高さを確保（16:9に近い 56vw 前後が目安） */
+    height: auto;
+    min-height: 56.25vw; 
+    padding: 0;
     position: relative;
- }
-
-  /* --- メインコピー --- */
-  .fv-copy {
-    grid-column:  1 / 2;
-    font-size: 3rem;
-    margin: 0 0 4rem 0;
-    line-height: 1;
+    overflow: hidden;
   }
 
-  .fv-copy span{
-    display: inline-block;
-    margin-bottom: 0.6rem;
-    letter-spacing: 0.5rem;
+  /* スマホ用の<img>タグはPCでは非表示にする（背景画像を使うため） */
+  .fv-image {
+    display: none;
   }
 
-  .fv-copy .line-1{
-    margin-left: 0;
-  }
-
-  .fv-copy .line-2{
-    margin-left: 8rem;
-  }
-
-  .fv-copy .big {
-    font-size: 6rem;
-  }
-
-  /* --- サブ説明：横並び・下寄せ --- */
-  .fv-sub {
-    margin-bottom: 3.6rem;
-    grid-column: 1/2;
-  }
-
-  .fv-sub p {
-    margin-left: 0;          /* ← SPの -18rem を解除 */
-    margin-top: 7rem;
-    text-align: left;
-    font-size: 2rem;
-    line-height: 1.8;
-    letter-spacing: 0.3rem;
-  }
-
-  /* --- メイン訴求 --- */
-  .fv-title {
-    grid-column: 1/2;
-    font-size: 3.2rem;
-    letter-spacing: 0.25rem;
-    text-align: left;
-    margin: 0 0 2.8rem 0;
-    line-height: 1.35;
-  }
-
-  /* --- 注意書き --- */
-  .fv-note {
-    grid-column: 1 / 2;
-    margin-bottom: 4.2rem;
-    line-height: 1.7;
-    font-size: 1.5rem;
-    font-weight: 500;
-  }
-
-    /* --- バッグ画像（右側に固定） --- */
-  .fv-bags {
-    grid-column: 2 /3;
-    grid-row:  1/5;
-    width: 150%;
-    max-width: 60rem;
-    justify-self: center;
-  }
-
-      /* --- バッジ（PCでは少し小さく・固定サイズ） --- */
-  .fv-badge {
+  .fv-container {
+    width: 100%;
+    height: 100%;
     position: absolute;
-    width: 150px;
-    height: 150px;
-    max-width: none;
-    max-height: none;
-    top: 6%;
-    right: 6%;
+    top: 0;
+    left: 0;
   }
 
-  .fv-badge-text {
-    font-size: 2.3rem;
-    font-weight: 600;
-    letter-spacing: 0.1rem;
-    line-height: 1.7;
+  .fv-inner {
+    width: 100%;
+    height: 100%;
+    max-width: 1200px;
+    bottom: 5px;
+    margin: 0 auto;
+    position: relative;
+    /* 不要なgrid設定はすべて削除 */
   }
 
-
-  /* --- CTA：横並び --- */
+  /* --- CTAボタンの配置：画像内の「買取査定を予約〜」の文字の下あたり --- */
   .fv-cta {
-    display: flex;
-    gap: 7rem;
-    justify-content: center;  
-
     position: absolute;
     left: 50%;
-    bottom: 4%;
+    bottom: 3%; /* 画像の下端からの距離。 */
     transform: translateX(-50%);
-
+    
+    display: flex;
+    flex-direction: row; /* 横並び */
+    justify-content: center;
+    gap: 5rem; /* ボタン同士の間隔 */
     width: 100%;
-    max-width: 77rem;
+    max-width: 800px; /* ボタンが広がりすぎないように制限 */
+    z-index: 10;
+  }
+
+  /* ボタン自体のサイズ調整 */
+  .fv-cta .cta-btn {
+    flex: 1;
+    max-width: 320px;
+    font-size: 1.8rem;
+    padding: 1.5rem 0;
   }
 
 
@@ -1370,107 +1305,72 @@ h3{
 
 
   /*特典セクション*/
-
-
- .benefit-main-flex {
-    position: relative;
-    min-height: 520px; /* CTAと重ならない高さに調整 */
-  }
-
-  /* ===== 左カラム（テキストエリア） ===== */
-  .benefit-badge-img,
-  .benefit-main-top,
-  .benefit-date,
-  .benefit-everyone {
-    max-width: 35rem;
-  }
-
-  /* 左カラムの中で「左右端に揃える」 */
-  .benefit-main-top,
-  .benefit-everyone {
-    justify-content: space-between;
-  }
-
-  .benefit-date{
-    display: flex;
-    justify-content: space-between;
-  }
-
-  /* ===== バッグ画像（右側） ===== */
-  .benefit-badge-img img.benefit-img {
-    position: absolute;
-    right: 1%;
-    top: 4%;        /* ← 10名様にかぶらない位置へ */
-    width: 50rem;
-    max-width: 52%;
-    padding: 0;
-    z-index: 1;       /* 10名様より「下」にする */
-  }
-
-  .benefit-main-top{
-    margin-bottom: 6rem;
-  }
-  /* 10名様は必ず手前に */
-  .benefit-item-right {
-    position: relative;
-    z-index: 2;
-  }
-
-  .benefit-number{
-    font-size: 5rem;
-    text-shadow: 2px 2px 3px rgba(0, 0, 0, 0.55);
-  }
-
-  .benefit-unit{
-    font-size: 2rem;
-  }
-
-    .benefit-coupon{
-    font-size: 2rem;
-    letter-spacing: 0.2rem;
-  }
-
-
-  .benefit-everyone-content{
-    line-height: 1.8;
-    display: block;
-    justify-content: space-between;
-    align-items: center;
-    width: 100%;
-  }
-
-  /* 子要素のインライン挙動をリセットして揃えやすくする */
-  .benefit-expire-note-wrap {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    width: 100%;
-    white-space: nowrap; /* 改行防止 */
-  }
-
-
-  /* バッジの縦ズレだけ調整 */
-  .benefit-badge {
-    transform: translateY(0);
-    width: 10rem;
-  }
-
-  .badge-text{
-    font-size: 2.5rem;
-    letter-spacing: 0.3rem;
-  }
-
-  /* ===== CTAボタンを下へ ===== */
-  .benefit-cta{
+.benefit-wrapper {
+    padding: 80px 0;
     text-align: center;
   }
 
-  .benefit-cta .cta-btn{
-    margin: 5rem 0 auto ;
-    display: inline-block;
+  /* タイトル：画像の外（上）に配置 */
+  .benefit-title {
+    font-size: 2.8rem;
+    font-weight: 700;
+    margin-bottom: 4rem;
   }
 
-  /*空き枠状況　セクション*/
+  .benefit-title::after {
+    content: '';
+    display: block;
+    width: 100px;
+    height: 4px;
+    background: linear-gradient(90deg, #E3C46B, #f9f0d1, #E3C46B);
+    margin: 12px auto 0;
+    border-radius: 2px;
+  }
+
+
+  /* 画像とボタンを重ねる親要素（ここが重要） */
+  .benefit-visual-unit {
+    position: relative;
+    width: 100%;
+    max-width: 1080px; /* 作成した画像の横幅に合わせて調整してください */
+    margin: 0 auto;
+    line-height: 0;
+  }
+
+  .benefit-banner-img {
+    width: 100%;
+    height: auto;
+    display: block;
+    content: url(images/tokuten_pc2.jpg);
+    /* 必要なら角丸を追加 */
+    border-radius: 8px;
+    box-shadow: 0 10px 40px rgba(0,0,0,0.15);
+  }
+
+  /* PC版：CTAボタンを画像内の下部に横並びで配置 */
+  .benefit-cta {
+    position: absolute;
+    bottom: 8%; /* 画像内のボタン用スペースに合わせて%で調整 */
+    left: 50%;
+    transform: translateX(-50%);
+    
+    display: flex;
+    flex-direction: row; /* 横並び */
+    justify-content: center;
+    gap: 40px; /* ボタン同士の間隔 */
+    width: 100%;
+    max-width: 700px; /* ボタンが広がりすぎないように制限 */
+  }
+
+  .benefit-cta .cta-btn {
+    flex: 1;
+    font-size: 1.8rem;
+    padding: 1.6rem 0;
+    margin: 0; /* SP版の上下マージンをリセット */
+    box-shadow: 0 4px 15px rgba(0,0,0,0.3)
+  }
+
+/*空き枠状況　セクション*/
   .availability-title{
     font-size: 3rem;
     letter-spacing: 0.2rem;
